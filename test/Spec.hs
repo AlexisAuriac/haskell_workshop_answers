@@ -1,9 +1,15 @@
 import Test.Hspec
 
-import TestHelloWorld
-import TestMap
+import TestBasic
+import TestEasy
+import TestMedium1
+import TestMedium2
+import TestHard
 
 main :: IO ()
 main = hspec $ do
-    testHelloWorld
-    testMap
+    testBasic
+    testEasy
+    testMedium1
+    testMedium2
+    testHard

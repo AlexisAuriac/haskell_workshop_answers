@@ -1,4 +1,4 @@
-module Advanced (
+module Hard (
     myReplicate,
     myIntersperse,
     myIntercalate,
@@ -11,6 +11,7 @@ myReplicate :: Int -> a -> [a]
 myReplicate n x = map (const x) [1..n]
 
 myIntersperse :: a -> [a] -> [a]
+myIntersperse _ [] = []
 myIntersperse e xs = init $ xs >>= (:[e])
 
 myIntercalate :: [a] -> [[a]] -> [a]
@@ -34,4 +35,6 @@ mySplitAt' _ [] left = (reverse left, [])
 mySplitAt' n (x:xs) left = mySplitAt' (n-1) xs (x:left)
 
 mySplitAt :: Int -> [a] -> ([a], [a])
-mySplitAt n xs = mySplitAt' n xs []
+mySplitAt n xs
+    | n < 0 = ([], xs)
+    | otherwise = mySplitAt' n xs []

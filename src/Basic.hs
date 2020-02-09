@@ -15,14 +15,14 @@ myHead :: [a] -> a
 myHead [] = error "Not enough elements"
 myHead (x:_) = x
 
+myTail :: [a] -> [a]
+myTail [] = error "Not enough elements"
+myTail (_:xs) = xs
+
 myLast :: [a] -> a
 myLast [] = error "Not enough elements"
 myLast [x] = x
 myLast (_:xs) = myLast xs
-
-myTail :: [a] -> [a]
-myTail [] = error "Not enough elements"
-myTail (_:xs) = xs
 
 myInit' :: [a] -> [a] -> [a]
 myInit' [] _ = error "Not enough elements"

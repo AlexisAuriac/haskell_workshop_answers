@@ -1,4 +1,4 @@
-module HigherOrderFunctions (
+module Medium2 (
     myMap,
     myFoldl,
     myPartition,

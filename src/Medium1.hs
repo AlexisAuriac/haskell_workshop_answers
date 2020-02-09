@@ -1,4 +1,4 @@
-module TakeAndDrop (
+module Medium1 (
     myTake,
     myDrop,
     myTakeWhile,
