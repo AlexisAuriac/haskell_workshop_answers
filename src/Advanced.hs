@@ -1,18 +1,37 @@
 module Advanced (
+    myReplicate,
+    myIntersperse,
+    myIntercalate,
+    myZip,
+    myUnzip,
+    mySplitAt
 ) where
 
-myPartition' :: (a -> Bool) -> [a] -> ([a], [a]) -> ([a], [a])
-myPartition' _ [] (l1, l2) = (reverse l1, reverse l2)
-myPartition' f (x:xs) (l1, l2) = if f x
-    then myPartition' f xs (x:l1, l2)
-    else myPartition' f xs (l1, x:l2)
+myReplicate :: Int -> a -> [a]
+myReplicate n x = map (const x) [1..n]
 
-myPartition :: (a -> Bool) -> [a] -> ([a], [a])
-myPartition f xs = myPartition' f xs ([], [])
+myIntersperse :: a -> [a] -> [a]
+myIntersperse e xs = init $ xs >>= (:[e])
 
-joinList :: [a] -> [[a]] -> [a]
-joinList _ [] = []
-joinList sep list = concat list'
-    where list' = map (++ sep) (init list) ++ [last list]
+myIntercalate :: [a] -> [[a]] -> [a]
+myIntercalate e xs = concat $ myIntersperse e xs
 
+myZip' :: [a] -> [b] -> [(a, b)] -> [(a, b)]
+myZip' [] _ res = reverse res
+myZip' _ [] res = reverse res
+myZip' (x1:l1) (x2:l2) res = myZip' l1 l2 ((x1, x2):res)
 
+myZip :: [a] -> [b] -> [(a, b)]
+myZip l1 l2 = myZip' l1 l2 []
+
+myUnzip :: [(a, b)] -> ([a], [b])
+myUnzip xs = let (l1, l2) = foldl (\(l1', l2') (x1, x2) -> (x1:l1', x2:l2')) ([], []) xs in
+    (reverse l1, reverse l2)
+
+mySplitAt' :: Int -> [a] -> [a] -> ([a], [a])
+mySplitAt' 0 right left = (reverse left, right)
+mySplitAt' _ [] left = (reverse left, [])
+mySplitAt' n (x:xs) left = mySplitAt' (n-1) xs (x:left)
+
+mySplitAt :: Int -> [a] -> ([a], [a])
+mySplitAt n xs = mySplitAt' n xs []
